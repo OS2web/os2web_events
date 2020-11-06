@@ -1,0 +1,28 @@
+name: 'OS2Web Events'
+type: module
+description: 'Events handler.'
+package: OS2
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - feeds
+  - feeds_tamper
+  - node
+  - content_moderation
+  - content_translation
+  - field_group
+  - options
+  - link
+  - path
+  - pathauto
+  - menu_ui
+  - paragraphs
+  - taxonomy
+  - inline_entity_form
+  - fieldblock
+  - scheduler
+  - scheduler_content_moderation_integration
+  - better_exposed_filters
+  - os2web_pagebuilder
+  - locale
+  - svg_image

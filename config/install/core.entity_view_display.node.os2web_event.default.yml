@@ -1,0 +1,101 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.node.os2web_event.body
+    - field.field.node.os2web_event.field_o2web_event_resume
+    - field.field.node.os2web_event.field_os2web_event_end_date
+    - field.field.node.os2web_event.field_os2web_event_kategori
+    - field.field.node.os2web_event.field_os2web_event_section
+    - field.field.node.os2web_event.field_os2web_event_start_date
+    - field.field.node.os2web_event.field_os2web_event_url
+    - field.field.node.os2web_event.field_os2web_evnet_image
+    - node.type.os2web_event
+  module:
+    - datetime
+    - svg_image
+    - text
+    - user
+id: node.os2web_event.default
+targetEntityType: node
+bundle: os2web_event
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_o2web_event_resume:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_os2web_event_end_date:
+    weight: 110
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_os2web_event_kategori:
+    weight: 103
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_os2web_event_section:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_os2web_event_start_date:
+    weight: 111
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_os2web_event_url:
+    weight: 108
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_os2web_evnet_image:
+    weight: 107
+    label: above
+    settings:
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  feeds_item: true
+  langcode: true
+  search_api_excerpt: true

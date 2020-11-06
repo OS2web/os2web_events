@@ -1,0 +1,7 @@
+os2web_events_kulturnaut.settings_form:
+  path: '/admin/config/system/os2web-kulturnaut'
+  defaults:
+    _title: 'OS2Web Events Import settings'
+    _form: 'Drupal\os2web_events_kulturnaut\Form\SettingsForm'
+  requirements:
+    _permission: 'administer os2web_events configuration'

@@ -1,0 +1,180 @@
+uuid: f208234b-5cb4-429e-9ded-8576f3a7414f
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.node.os2web_event.body
+    - field.field.node.os2web_event.feeds_item
+    - field.field.node.os2web_event.field_os2web_event_end_date
+    - field.field.node.os2web_event.field_os2web_event_section
+    - field.field.node.os2web_event.field_os2web_event_start_date
+    - field.field.node.os2web_event.field_os2web_event_url
+    - field.field.node.os2web_event.field_os2web_evnet_image
+    - node.type.os2web_event
+  module:
+    - feeds_ex
+    - feeds_tamper
+    - node
+third_party_settings:
+  feeds_tamper:
+    tampers:
+      0f8c26d8-6359-4b25-be77-795de7b6314b:
+        plugin: section_map_tamper
+        source: blank
+        weight: 0
+        label: 'Section Map'
+        uuid: 0f8c26d8-6359-4b25-be77-795de7b6314b
+id: os2web_events_import
+label: 'Events import'
+description: ''
+help: ''
+import_period: 1800
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: xml
+parser_configuration:
+  context:
+    value: //arr
+  sources:
+    overskrift:
+      label: overskrift
+      value: overskrift
+    beskrivelse:
+      label: beskrivelse
+      value: beskrivelse
+    url:
+      label: url
+      value: url
+    blank:
+      label: blank
+      value: blank
+    slutdato:
+      label: slutdato
+      value: slutdato
+    startdato:
+      label: startdato
+      value: startdato
+    billede:
+      label: billede
+      value: billede
+  use_tidy: false
+  display_errors: false
+  source_encoding:
+    - auto
+  debug_mode: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  langcode: und
+  update_existing: 2
+  update_non_existent: 'entity:unpublish_action:node'
+  expire: -1
+  owner_feed_author: true
+  owner_id: 1
+  authorize: false
+  skip_hash_check: false
+  values:
+    type: os2web_event
+custom_sources:
+  sted:
+    label: sted
+    value: sted
+    machine_name: sted
+  overskrift:
+    label: overskrift
+    value: overskrift
+    machine_name: overskrift
+  startdato:
+    label: startdato
+    value: startdato
+    machine_name: startdato
+  slutdato:
+    label: slutdato
+    value: slutdato
+    machine_name: slutdato
+  billede:
+    label: billede
+    value: billede
+    machine_name: billede
+  beskrivelse:
+    label: beskrivelse
+    value: beskrivelse
+    machine_name: beskrivelse
+  url:
+    label: url
+    value: url
+    machine_name: url
+  blank:
+    label: blank
+    value: blank
+    machine_name: blank
+mappings:
+  -
+    target: title
+    map:
+      value: overskrift
+    unique:
+      value: '1'
+    settings:
+      language: null
+  -
+    target: body
+    map:
+      value: beskrivelse
+      summary: ''
+    settings:
+      language: ''
+      format: wysiwyg_tekst
+  -
+    target: field_os2web_event_url
+    map:
+      value: url
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_os2web_event_section
+    map:
+      target_id: blank
+    settings:
+      language: ''
+      reference_by: tid
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_os2web_event_end_date
+    map:
+      value: slutdato
+    settings:
+      language: null
+      timezone: UTC
+  -
+    target: field_os2web_event_start_date
+    map:
+      value: startdato
+    settings:
+      language: null
+      timezone: UTC
+  -
+    target: field_os2web_evnet_image
+    map:
+      target_id: billede
+      alt: ''
+      title: ''
+    settings:
+      language: ''
+      reference_by: fid
+      existing: '2'
+      autocreate: 0
+  -
+    target: feeds_item
+    map:
+      url: 'parent:source'
+      guid: 'parent:uuid'
+    unique: {  }
+    settings: {  }

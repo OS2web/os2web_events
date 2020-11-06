@@ -1,0 +1,46 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.os2web_event.body
+    - field.field.node.os2web_event.field_o2web_event_resume
+    - field.field.node.os2web_event.field_os2web_event_end_date
+    - field.field.node.os2web_event.field_os2web_event_kategori
+    - field.field.node.os2web_event.field_os2web_event_section
+    - field.field.node.os2web_event.field_os2web_event_start_date
+    - field.field.node.os2web_event.field_os2web_event_url
+    - field.field.node.os2web_event.field_os2web_evnet_image
+    - node.type.os2web_event
+  module:
+    - text
+    - user
+id: node.os2web_event.teaser
+targetEntityType: node
+bundle: os2web_event
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  feeds_item: true
+  field_o2web_event_resume: true
+  field_os2web_event_end_date: true
+  field_os2web_event_kategori: true
+  field_os2web_event_section: true
+  field_os2web_event_start_date: true
+  field_os2web_event_url: true
+  field_os2web_evnet_image: true
+  langcode: true
+  search_api_excerpt: true
