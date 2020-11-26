@@ -36,9 +36,16 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    ;
     $possible_events_versions = $this->config(SettingsForm::$configName)
       ->get('event_versions');
+
+    $form['event_versions'] = [
+      '#type' => 'textfield',
+      '#title' => t('Possible event versions'),
+      '#description' => t('Comma-separated list of possible event versions'),
+      '#default_value' => $possible_events_versions,
+    ];
+    
     // Import settings.
     $form['event_versions'] = [
       '#type' => 'textfield',

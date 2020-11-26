@@ -1,0 +1,7 @@
+os2web_events.settings_form:
+  path: '/admin/config/system/os2web-events'
+  defaults:
+    _title: 'OS2Web Events settings'
+    _form: 'Drupal\os2web_events\Form\SettingsForm'
+  requirements:
+    _permission: 'administer os2web_events configuration'

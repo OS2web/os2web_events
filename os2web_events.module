@@ -1,6 +1,7 @@
 <?php
-
-/* 
+ use Drupal\Core\Datetime\DrupalDateTime;
+ use Drupal\os2web_events\Form\SettingsForm;
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -13,4 +14,36 @@
  */
 function os2web_events_preprocess_paragraph__os2web_events_search(&$variables) {
   $variables['content'] = views_embed_view('os2web_events_search', 'os2web_events_embed_search');
+}
+
+function os2web_events_cron() {
+  $old_event_handle_method = \Drupal::config(SettingsForm::$configName)
+    ->get('old_events_handle');
+
+  $nids = \Drupal::entityQuery("node")
+    ->condition('type', 'os2web_event')
+    ->execute();
+  $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+  $nodes = $storage_handler->loadMultiple($nids);
+  foreach ($nodes as $node)
+  {
+   $end_date = array_pop($node->get('field_os2web_event_end_date')->getValue());
+   $end_date = DrupalDateTime::createFromFormat('Y-m-d',$end_date['value'] );
+   $current_date = new DrupalDateTime('now');
+   if ($end_date < $current_date) {
+    if ($old_event_handle_method == "1") {
+      // Delete nodes
+      $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+      $storage_handler->delete(array($node));
+    }
+    else {
+      // Unpublish nodes
+      if ($node->isPublished()) {
+        $node->setPublished(false);
+        $node->save();
+      }
+    }
+   }
+
+  }
 }
