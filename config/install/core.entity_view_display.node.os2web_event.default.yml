@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.os2web_event.body
+    - field.field.node.os2web_event.feeds_item
     - field.field.node.os2web_event.field_o2web_event_resume
     - field.field.node.os2web_event.field_os2web_event_end_date
     - field.field.node.os2web_event.field_os2web_event_kategori
@@ -24,62 +25,31 @@ content:
   body:
     label: hidden
     type: text_default
-    weight: 101
+    weight: 4
     settings: {  }
     third_party_settings: {  }
-    region: content
-  field_o2web_event_resume:
-    weight: 104
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
     region: content
   field_os2web_event_end_date:
-    weight: 110
-    label: above
+    weight: 3
+    label: inline
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: event_date
     third_party_settings: {  }
     type: datetime_default
-    region: content
-  field_os2web_event_kategori:
-    weight: 103
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_os2web_event_section:
-    weight: 102
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
   field_os2web_event_start_date:
-    weight: 111
-    label: above
+    weight: 2
+    label: inline
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: event_date
     third_party_settings: {  }
     type: datetime_default
     region: content
-  field_os2web_event_url:
-    weight: 108
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
   field_os2web_evnet_image:
-    weight: 107
-    label: above
+    weight: 1
+    label: hidden
     settings:
       svg_attributes:
         width: null
@@ -91,11 +61,15 @@ content:
     type: image
     region: content
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   feeds_item: true
+  field_o2web_event_resume: true
+  field_os2web_event_kategori: true
+  field_os2web_event_section: true
+  field_os2web_event_url: true
   langcode: true
   search_api_excerpt: true
