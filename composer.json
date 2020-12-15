@@ -1,5 +1,5 @@
 {
-  "name": "os2web/os2web_events_import",
+  "name": "os2web/os2web_events",
   "description": "Provide functionality for events import from Kulturnaut",
   "type": "drupal-module",
   "require": {
