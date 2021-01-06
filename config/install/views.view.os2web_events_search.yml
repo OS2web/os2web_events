@@ -13,7 +13,7 @@ dependencies:
     - taxonomy
     - user
 id: os2web_events_search
-label: Aktiviteter
+label: 'Aktiviteter søgning'
 module: views
 description: ''
 tag: ''

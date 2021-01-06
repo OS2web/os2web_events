@@ -11,8 +11,10 @@ dependencies:
     - field.field.node.os2web_event.field_os2web_event_start_date
     - field.field.node.os2web_event.field_os2web_event_url
     - field.field.node.os2web_event.field_os2web_evnet_image
+    - image.style.os2web_medium
     - node.type.os2web_event
   module:
+    - svg_image
     - text
     - user
 id: node.os2web_event.teaser
@@ -22,17 +24,25 @@ mode: teaser
 content:
   body:
     label: hidden
-    type: text_summary_or_trimmed
-    weight: 101
+    type: text_trimmed
+    weight: 1
     settings:
-      trim_length: 600
+      trim_length: 150
     third_party_settings: {  }
     region: content
-  links:
-    weight: 100
-    settings: {  }
-    third_party_settings: {  }
+  field_os2web_evnet_image:
+    type: image
+    weight: 0
     region: content
+    label: hidden
+    settings:
+      image_style: os2web_medium
+      image_link: ''
+      svg_render_as_image: true
+      svg_attributes:
+        width: null
+        height: null
+    third_party_settings: {  }
 hidden:
   feeds_item: true
   field_o2web_event_resume: true
@@ -41,6 +51,6 @@ hidden:
   field_os2web_event_section: true
   field_os2web_event_start_date: true
   field_os2web_event_url: true
-  field_os2web_evnet_image: true
   langcode: true
+  links: true
   search_api_excerpt: true

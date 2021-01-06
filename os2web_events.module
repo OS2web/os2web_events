@@ -10,6 +10,28 @@
 /**
  * Implements hook_preprocess_paragraph().
  *
+ * Adding events block paragraph.
+ */
+function os2web_events_preprocess_paragraph__os2web_events(&$variables) {
+  if ($variables['view_mode'] == 'preview') {
+    return;
+  }
+
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+  $category = $paragraph->field_os2web_events_par_category->target_id;
+
+  // Fallback for a default one.
+  if (!$category) {
+    $category = 'all';
+  }
+
+  $variables['content'] = views_embed_view('os2web_events', 'os2web_events_embed_limited', $category);
+}
+
+/**
+ * Implements hook_preprocess_paragraph().
+ *
  * Adding event search form into paragraph.
  */
 function os2web_events_preprocess_paragraph__os2web_events_search(&$variables) {

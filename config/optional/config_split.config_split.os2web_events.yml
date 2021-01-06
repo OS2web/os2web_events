@@ -1,0 +1,17 @@
+langcode: da
+status: true
+dependencies: {  }
+id: os2web_events
+label: 'OS2Web events'
+description: ''
+folder: modules/contrib/os2web_events/config/install
+module: {  }
+theme: {  }
+blacklist:
+  - 'os2web_event*'
+  - '*os2web_event*'
+  - '*os2web_event'
+graylist: {  }
+graylist_dependents: false
+graylist_skip_equal: false
+weight: 0

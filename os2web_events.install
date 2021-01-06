@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and update hooks for page builder module.
+ */
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\field\Entity\FieldStorageConfig;
+use Symfony\Component\Yaml\Yaml;
+use Drupal\field\Entity\FieldConfig;
+
+
+function os2web_events_read_in_new_config($config_name) {
+  $path = drupal_get_path('module', 'os2web_events');
+  /** @var \Drupal\Core\Config\StorageInterface $active_storage */
+  $active_storage = \Drupal::service('config.storage');
+  $active_storage->write($config_name, Yaml::parse(file_get_contents($path . '/config/install/' . $config_name . '.yml')));
+}
+
+/**
+ * Creating paragraph os2web_events.
+ */
+function os2web_events_update_8001() {
+  $path = drupal_get_path('module', 'os2web_events');
+  /** @var \Drupal\Core\Config\StorageInterface $active_storage */
+  $active_storage = \Drupal::service('config.storage');
+
+  // Creating view.
+  $active_storage->write('views.view.os2web_events', Yaml::parse(file_get_contents($path . '/config/install/views.view.os2web_events.yml')));
+
+  // Updating view.
+  $active_storage->write('views.view.os2web_events_search', Yaml::parse(file_get_contents($path . '/config/install/views.view.os2web_events_search.yml')));
+
+  // Creating paragraph.
+  $active_storage->write('paragraphs.paragraphs_type.os2web_events', Yaml::parse(file_get_contents($path . '/config/install/paragraphs.paragraphs_type.os2web_events.yml')));
+
+  // Create field storage and field storage.
+  $module_handler = \Drupal::moduleHandler();
+  $config_storage = new FileStorage($module_handler->getModule('os2web_events')->getPath() . '/config/install');
+
+  foreach (['field.storage.paragraph.field_os2web_events_par_category', 'field.field.paragraph.os2web_events.field_os2web_events_par_category'] as $config_name) {
+    $config_record = $config_storage->read($config_name);
+
+    $entity_type = \Drupal::service('config.manager')->getEntityTypeIdByName($config_name);
+    /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $storage */
+    $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
+    $entity = $storage->createFromStorageRecord($config_record);
+    $entity->save();
+  }
+
+  // Updating paragraph view and form displays.
+  $active_storage->write('core.entity_form_display.paragraph.os2web_events.default', Yaml::parse(file_get_contents($path . '/config/install/core.entity_form_display.paragraph.os2web_events.default.yml')));
+  $active_storage->write('core.entity_view_display.paragraph.os2web_events.default', Yaml::parse(file_get_contents($path . '/config/install/core.entity_view_display.paragraph.os2web_events.default.yml')));
+
+  // Updating node view display.
+  $active_storage->write('core.entity_view_display.node.os2web_event.teaser', Yaml::parse(file_get_contents($path . '/config/install/core.entity_view_display.node.os2web_event.teaser.yml')));
+}
