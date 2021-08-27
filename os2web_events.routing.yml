@@ -5,3 +5,5 @@ os2web_events.settings_form:
     _form: 'Drupal\os2web_events\Form\SettingsForm'
   requirements:
     _permission: 'administer os2web_events configuration'
+  options:
+    _admin_route: TRUE
