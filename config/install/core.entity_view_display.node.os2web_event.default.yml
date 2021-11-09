@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.field.node.os2web_event.body
-    - field.field.node.os2web_event.feeds_item
     - field.field.node.os2web_event.field_o2web_event_resume
     - field.field.node.os2web_event.field_os2web_event_end_date
     - field.field.node.os2web_event.field_os2web_event_kategori
@@ -66,7 +65,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  feeds_item: true
   field_o2web_event_resume: true
   field_os2web_event_kategori: true
   field_os2web_event_section: true

@@ -44,7 +44,6 @@ content:
         height: null
     third_party_settings: {  }
 hidden:
-  feeds_item: true
   field_o2web_event_resume: true
   field_os2web_event_end_date: true
   field_os2web_event_kategori: true

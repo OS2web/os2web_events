@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.field.node.os2web_event.body
-    - field.field.node.os2web_event.feeds_item
     - field.field.node.os2web_event.field_os2web_event_end_date
     - field.field.node.os2web_event.field_os2web_event_section
     - field.field.node.os2web_event.field_os2web_event_start_date
@@ -177,10 +176,3 @@ mappings:
       reference_by: fid
       existing: '2'
       autocreate: 0
-  -
-    target: feeds_item
-    map:
-      url: 'parent:source'
-      guid: 'parent:uuid'
-    unique: {  }
-    settings: {  }

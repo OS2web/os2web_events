@@ -12,6 +12,11 @@ Settings are available under `admin/config/system/os2web-events`
 ### os2web_events_kulturnaut
 The aim of to provide import of the events from Kultunaut feed.
 
+**Additional settings**
+
+Settings are available under `/admin/config/system/os2web-kulturnaut`
+* **Possible event versions** - allows mapping between imported event version (visible in import URL after _?version=_ prefix) and Drupal event section.
+
 ## Install
 
 1. Module is available to download via composer.
