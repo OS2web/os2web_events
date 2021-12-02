@@ -30,17 +30,18 @@ third_party_settings:
         weight: 0
         label: 'OS2Web Section Map'
         uuid: dd4e5b66-a36d-453c-b052-743326546122
-_core:
-  default_config_hash: H020yHyj_vZfOOEBoe7QVMlnzeu2PWqBByYIOMNqr-w
 id: os2web_events_import
 label: 'Events import'
 description: ''
 help: ''
 import_period: 1800
-fetcher: upload
+fetcher: http
 fetcher_configuration:
-  allowed_extensions: 'txt csv tsv xml opml'
-  directory: 'public://feeds'
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
 parser: xml
 parser_configuration:
   context:
