@@ -1,0 +1,5 @@
+os2web_events.settings:
+  title: OS2Web Events
+  description: Settings for OS2Web Events.
+  route_name: os2web_events.settings_form
+  parent: system.admin_config_system

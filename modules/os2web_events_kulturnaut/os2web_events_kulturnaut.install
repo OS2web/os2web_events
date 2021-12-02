@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and update hooks for page builder module.
+ */
+
+use Symfony\Component\Yaml\Yaml;
+
+function os2web_events_kulturnaut_read_in_new_config($config_name) {
+  $path = drupal_get_path('module', 'os2web_events_kulturnaut');
+  /** @var \Drupal\Core\Config\StorageInterface $active_storage */
+  $active_storage = \Drupal::service('config.storage');
+  $active_storage->write($config_name, Yaml::parse(file_get_contents($path . '/config/install/' . $config_name . '.yml')));
+}
+
+/**
+ * Creating paragraph os2web_events.
+ */
+function os2web_events_kulturnaut_update_8001() {
+  os2web_events_kulturnaut_read_in_new_config('feeds.feed_type.os2web_events_import');
+}

@@ -3,7 +3,9 @@ status: true
 dependencies:
   config:
     - field.field.node.os2web_event.body
+    - field.field.node.os2web_event.feeds_item
     - field.field.node.os2web_event.field_os2web_event_end_date
+    - field.field.node.os2web_event.field_os2web_event_kategori
     - field.field.node.os2web_event.field_os2web_event_section
     - field.field.node.os2web_event.field_os2web_event_start_date
     - field.field.node.os2web_event.field_os2web_event_url
@@ -16,24 +18,29 @@ dependencies:
 third_party_settings:
   feeds_tamper:
     tampers:
-      0f8c26d8-6359-4b25-be77-795de7b6314b:
-        plugin: section_map_tamper
-        source: blank
+      9484a363-ea8f-4ad1-9f88-9c31219b9f4c:
+        plugin: os2web_events_kulturnaut_category_map_tamper
+        source: os2web_category
         weight: 0
-        label: 'Section Map'
-        uuid: 0f8c26d8-6359-4b25-be77-795de7b6314b
+        label: 'Category Map'
+        uuid: 9484a363-ea8f-4ad1-9f88-9c31219b9f4c
+      dd4e5b66-a36d-453c-b052-743326546122:
+        plugin: os2web_events_kulturnaut_section_map_tamper
+        source: os2web_section
+        weight: 0
+        label: 'OS2Web Section Map'
+        uuid: dd4e5b66-a36d-453c-b052-743326546122
+_core:
+  default_config_hash: H020yHyj_vZfOOEBoe7QVMlnzeu2PWqBByYIOMNqr-w
 id: os2web_events_import
 label: 'Events import'
 description: ''
 help: ''
 import_period: 1800
-fetcher: http
+fetcher: upload
 fetcher_configuration:
-  auto_detect_feeds: false
-  use_pubsubhubbub: false
-  always_download: false
-  fallback_hub: ''
-  request_timeout: 30
+  allowed_extensions: 'txt csv tsv xml opml'
+  directory: 'public://feeds'
 parser: xml
 parser_configuration:
   context:
@@ -48,9 +55,6 @@ parser_configuration:
     url:
       label: url
       value: url
-    blank:
-      label: blank
-      value: blank
     slutdato:
       label: slutdato
       value: slutdato
@@ -63,6 +67,12 @@ parser_configuration:
     kategori:
       label: kategori
       value: kategori
+    os2web_category:
+      label: os2web_category
+      value: os2web_category
+    os2web_section:
+      label: os2web_section
+      value: os2web_section
   use_tidy: false
   display_errors: false
   source_encoding:
@@ -118,6 +128,14 @@ custom_sources:
     label: kategori
     value: kategori
     machine_name: kategori
+  os2web_category:
+    label: os2web_category
+    value: os2web_category
+    machine_name: os2web_category
+  os2web_section:
+    label: os2web_section
+    value: os2web_section
+    machine_name: os2web_section
 mappings:
   -
     target: title
@@ -143,15 +161,6 @@ mappings:
     settings:
       language: null
   -
-    target: field_os2web_event_section
-    map:
-      target_id: blank
-    settings:
-      language: ''
-      reference_by: tid
-      feeds_item: guid
-      autocreate: 0
-  -
     target: field_os2web_event_end_date
     map:
       value: slutdato
@@ -175,4 +184,29 @@ mappings:
       language: ''
       reference_by: fid
       existing: '2'
+      autocreate: 0
+  -
+    target: feeds_item
+    map:
+      url: 'parent:source'
+      guid: 'parent:uuid'
+    unique: {  }
+    settings: {  }
+  -
+    target: field_os2web_event_kategori
+    map:
+      target_id: os2web_category
+    settings:
+      language: ''
+      reference_by: tid
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_os2web_event_section
+    map:
+      target_id: os2web_section
+    settings:
+      language: ''
+      reference_by: tid
+      feeds_item: guid
       autocreate: 0

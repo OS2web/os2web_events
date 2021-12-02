@@ -1,0 +1,5 @@
+os2web_events_kulturnaut.settings:
+  title: OS2Web Events Kulturnaut
+  description: Settings for OS2Web Events Kulturnaut.
+  route_name: os2web_events_kulturnaut.settings_form
+  parent: system.admin_config_system

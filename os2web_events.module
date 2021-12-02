@@ -19,14 +19,21 @@ function os2web_events_preprocess_paragraph__os2web_events(&$variables) {
 
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
-  $category = $paragraph->field_os2web_events_par_category->target_id;
+  $category_values = $paragraph->field_os2web_events_par_category->getValue();
 
-  // Fallback for a default one.
-  if (!$category) {
-    $category = 'all';
+  $category_targets = [];
+  foreach ($category_values as $value) {
+    $category_targets[] = $value['target_id'];
   }
 
-  $variables['content'] = views_embed_view('os2web_events', 'os2web_events_embed_limited', $category);
+  $categories = implode(',', $category_targets);
+
+  // Fallback for a default one.
+  if (!$categories) {
+    $categories = 'all';
+  }
+
+  $variables['content'] = views_embed_view('os2web_events', 'os2web_events_embed_limited', $categories);
 }
 
 /**

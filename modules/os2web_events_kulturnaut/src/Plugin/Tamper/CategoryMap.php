@@ -10,13 +10,13 @@ use Drupal\os2web_events_kulturnaut\Form\SettingsForm;
  * Plugin implementation for filtering data.
  *
   @Tamper(
- *   id = "os2web_events_kulturnaut_section_map_tamper",
- *   label = @Translation("OS2Web Section Map"),
- *   description = @Translation("Adds mapping to a section specific in Kulturnatut module settings"),
+ *   id = "os2web_events_kulturnaut_category_map_tamper",
+ *   label = @Translation("OS2Web Category Map"),
+ *   description = @Translation("Adds mapping to a category specific in Kulturnatut module settings"),
  *   category = "OS2Web Events Kulturnaut",
  * )
  */
-class SectionMap extends TamperBase {
+class CategoryMap extends TamperBase {
 
   /**
    * {@inheritdoc}
@@ -28,14 +28,14 @@ class SectionMap extends TamperBase {
     $query = parse_url($data, PHP_URL_QUERY);
     $paths = explode('=', $query);
     if ($paths[0] == 'version') {
-      $sections = $settingFormConfig->get('section_mapping_' . $paths[1]);
-      $event_sections = array();
-      if (!empty($sections)) {
-        foreach ($sections as $section) {
-          $event_sections[] = (int) $section['target_id'];
+      $categories = $settingFormConfig->get('category_mapping_' . $paths[1]);
+      $event_categories = array();
+      if (!empty($categories)) {
+        foreach ($categories as $category) {
+          $event_categories[] = (int) $category['target_id'];
         }
       }
-      return $event_sections;
+      return $event_categories;
     }
     return false;
   }

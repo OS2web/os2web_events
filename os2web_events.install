@@ -56,3 +56,16 @@ function os2web_events_update_8001() {
   // Updating node view display.
   $active_storage->write('core.entity_view_display.node.os2web_event.teaser', Yaml::parse(file_get_contents($path . '/config/install/core.entity_view_display.node.os2web_event.teaser.yml')));
 }
+
+/**
+ * Allowing to list events by multiple categories.
+ */
+function os2web_events_update_8002() {
+  // Creating view.
+  os2web_events_read_in_new_config('views.view.os2web_events');
+
+  // Updating field storage.
+  $storegeConfig = FieldStorageConfig::loadByName('paragraph', 'field_os2web_events_par_category');
+  $storegeConfig->setCardinality(-1);
+  $storegeConfig->save();
+}

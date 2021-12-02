@@ -15,7 +15,10 @@ The aim of to provide import of the events from Kultunaut feed.
 **Additional settings**
 
 Settings are available under `/admin/config/system/os2web-kulturnaut`
-* **Possible event versions** - allows mapping between imported event version (visible in import URL after _?version=_ prefix) and Drupal event section.
+* **Possible event versions** - allows mapping between imported event version (visible in import URL after _?version=_ prefix) and OS2Web Section and Os2web event categories.
+* **Section mappings** - mapping each version with section (only if versions are not empty)
+* **Category mappings** - mapping each version with category (only if versions are not empty)
+
 
 ## Install
 
