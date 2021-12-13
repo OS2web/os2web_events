@@ -16,7 +16,7 @@ class SettingsForm extends ConfigFormBase {
    *
    * @var string
    */
-  public static $configName = 'os2web_events_import.settings';
+  public static $configName = 'os2web_events_kulturnaut.settings';
 
   /**
    * {@inheritdoc}
@@ -45,7 +45,7 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('Comma-separated list of possible event versions'),
       '#default_value' => $possible_events_versions,
     ];
-    
+
     // Import settings.
     $form['event_versions'] = [
       '#type' => 'textfield',
