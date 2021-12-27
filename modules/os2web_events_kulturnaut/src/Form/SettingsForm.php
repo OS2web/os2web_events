@@ -16,13 +16,13 @@ class SettingsForm extends ConfigFormBase {
    *
    * @var string
    */
-  public static $configName = 'os2web_events_import.settings';
+  public static $configName = 'os2web_events_kulturnaut.settings';
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'os2web_events_import_settings';
+    return 'os2web_events_kulturnaut_settings';
   }
 
   /**

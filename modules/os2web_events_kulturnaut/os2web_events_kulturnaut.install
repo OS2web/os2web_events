@@ -20,3 +20,23 @@ function os2web_events_kulturnaut_read_in_new_config($config_name) {
 function os2web_events_kulturnaut_update_8001() {
   os2web_events_kulturnaut_read_in_new_config('feeds.feed_type.os2web_events_import');
 }
+/**
+ * Creating paragraph os2web_events.
+ */
+function os2web_events_kulturnaut_update_8002() {
+  $oldConfig = \Drupal::config('os2web_events_import.settings');
+  $possible_events_versions = $oldConfig->get('event_versions');
+  $config_factory = \Drupal::configFactory();
+  $config_factory->getEditable('os2web_events_kulturnaut.settings')->set('event_versions',  $possible_events_versions)->save();
+
+  if (!empty($possible_events_versions)) {
+    $versions_array = explode(',', $possible_events_versions);
+    foreach ($versions_array as $version) {
+      $config_factory->getEditable('os2web_events_kulturnaut.settings')->set('section_mapping_' . $version,  $oldConfig->get('section_mapping_' . $version))->save();
+    }
+    foreach ($versions_array as $version) {
+      $config_factory->getEditable('os2web_events_kulturnaut.settings')->set('category_mapping_' . $version,  $oldConfig->get('category_mapping_' . $version))->save();
+    }
+  }
+  Drupal::configFactory()->getEditable('os2web_events_import.settings')->delete();
+}
