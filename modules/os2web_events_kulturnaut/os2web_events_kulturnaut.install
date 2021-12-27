@@ -21,7 +21,7 @@ function os2web_events_kulturnaut_update_8001() {
   os2web_events_kulturnaut_read_in_new_config('feeds.feed_type.os2web_events_import');
 }
 /**
- * Creating paragraph os2web_events.
+ * Update configuration names.
  */
 function os2web_events_kulturnaut_update_8002() {
   $oldConfig = \Drupal::config('os2web_events_import.settings');
