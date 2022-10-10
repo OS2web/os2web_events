@@ -56,18 +56,35 @@ function os2web_events_cron() {
   $nodes = $storage_handler->loadMultiple($nids);
   foreach ($nodes as $node)
   {
-   $end_date = array_pop($node->get('field_os2web_event_end_date')->getValue());
-   $end_date = DrupalDateTime::createFromFormat('Y-m-d',$end_date['value'] );
+      $end_date = $node->get('field_os2web_event_end_date')->getValue();
+      if (is_array($end_date))
+      {
+          $end_date = array_pop($end_date);
+      }
+
+      if ($end_date && isset($end_date['value']))
+      {
+          $end_date = DrupalDateTime::createFromFormat('Y-m-d', $end_date['value']);
+      }
+      else
+      {
+          $end_date = DrupalDateTime::createFromTimestamp(strtotime("tomorrow 00:00"));
+      }
+      
    $current_date = new DrupalDateTime('now');
-   if ($end_date < $current_date) {
-    if ($old_event_handle_method == "1") {
+   if ($end_date < $current_date)
+   {
+    if ($old_event_handle_method == "1")
+    {
       // Delete nodes
       $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
       $storage_handler->delete(array($node));
     }
-    else {
+    else
+    {
       // Unpublish nodes
-      if ($node->isPublished()) {
+      if ($node->isPublished())
+      {
         $node->setPublished(false);
         $node->save();
       }
