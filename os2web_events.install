@@ -69,3 +69,57 @@ function os2web_events_update_8002() {
   $storegeConfig->setCardinality(-1);
   $storegeConfig->save();
 }
+
+
+/**
+ * Add time to event start and end date
+ *
+ */
+function os2web_events_update_9500() {
+
+  date_default_timezone_set('UTC');
+
+  // get the data
+  $nids = \Drupal::entityQuery('node')
+    ->condition('type', 'os2web_event')
+    ->execute();
+
+  $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+
+  // change the database
+  $start_field = \Drupal::entityTypeManager()
+    ->getStorage('field_storage_config')
+    ->load('node.field_os2web_event_start_date');
+  $start_field->setSetting('datetime_type', 'datetime');
+  $start_field->save();
+
+  $end_field = \Drupal::entityTypeManager()
+    ->getStorage('field_storage_config')
+    ->load('node.field_os2web_event_end_date');
+  $end_field->setSetting('datetime_type', 'datetime');
+  $end_field->save();
+
+  // put the data back
+  foreach ($nodes as $node) {
+    if ($node->get('field_os2web_event_start_date')->value) {
+      $raw = $node->get('field_os2web_event_start_date')->value;
+      $stamp = strtotime($raw);
+      if (strlen($raw) == 10) $stamp = strtotime("-2 hour", $stamp);
+      $date = date('Y-m-d\TH:i:s', $stamp);
+      $node->set('field_os2web_event_start_date', $date);
+      $node->save();
+    }
+
+    if ($node->get('field_os2web_event_end_date')->value) {
+      $raw = $node->get('field_os2web_event_end_date')->value;
+      $stamp = strtotime($raw);
+      if (strlen($raw) == 10) $stamp = strtotime("-2 hour", $stamp);
+      $date = date('Y-m-d\TH:i:s', $stamp);
+      $node->set('field_os2web_event_end_date', $date);
+      $node->save();
+    }
+  }
+
+}
+
+
