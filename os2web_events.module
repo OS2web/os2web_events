@@ -46,50 +46,54 @@ function os2web_events_preprocess_paragraph__os2web_events_search(&$variables) {
 }
 
 function os2web_events_cron() {
+
   $old_event_handle_method = \Drupal::config(SettingsForm::$configName)
     ->get('old_events_handle');
 
   $nids = \Drupal::entityQuery("node")
     ->condition('type', 'os2web_event')
     ->execute();
+
   $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
   $nodes = $storage_handler->loadMultiple($nids);
-  foreach ($nodes as $node)
-  {
-      $end_date = $node->get('field_os2web_event_end_date')->getValue();
-      if (is_array($end_date))
-      {
-          $end_date = array_pop($end_date);
-      }
 
-      if ($end_date && isset($end_date['value']))
-      {
-          $end_date = DrupalDateTime::createFromFormat('Y-m-d', $end_date['value']);
+  foreach ($nodes as $idx => $node) {
+    $end_date = NULL;
+
+    if ($node->hasField('field_os2web_event_end_date')) {
+      $end_date = $node->field_os2web_event_end_date->value;
+
+      if (is_string($end_date) && !empty($end_date)) {
+        $end_date = DrupalDateTime::createFromTimestamp(strtotime($end_date));
+
       }
-      else
-      {
-          $end_date = DrupalDateTime::createFromTimestamp(strtotime("tomorrow 00:00"));
-      }
-      
-   $current_date = new DrupalDateTime('now');
-   if ($end_date < $current_date)
-   {
-    if ($old_event_handle_method == "1")
-    {
-      // Delete nodes
-      $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
-      $storage_handler->delete(array($node));
-    }
-    else
-    {
-      // Unpublish nodes
-      if ($node->isPublished())
-      {
-        $node->setPublished(false);
-        $node->save();
+      elseif (is_array($end_date)) {
+        $end_date = array_pop($end_date);
+        if ($end_date && isset($end_date['value'])) {
+          $end_date = DrupalDateTime::createFromTimestamp(strtotime($end_date['value']));
+        }
       }
     }
-   }
 
+    if ($end_date) {
+      $current_date = new DrupalDateTime('now');
+      if ($end_date < $current_date) {
+
+        if ($old_event_handle_method == "1") {
+          // Delete node
+          $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+          $storage_handler->delete([$node]);
+        }
+        else {
+          // Unpublish node
+          if ($node->isPublished()) {
+            $node->setpublished(false);
+            $node->setUnpublished();
+            $node->save();
+          }
+        }
+      }
+    }
   }
+  
 }
