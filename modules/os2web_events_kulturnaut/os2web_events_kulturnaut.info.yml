@@ -3,7 +3,7 @@ type: module
 description: 'Provide functionality for import events from kulturnaut.'
 package: 'OS2Web'
 core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 dependencies:
   - os2web_events
   
