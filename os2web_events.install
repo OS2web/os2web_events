@@ -81,6 +81,7 @@ function os2web_events_update_9500() {
 
   // get the data
   $nids = \Drupal::entityQuery('node')
+    ->accessCheck(false)
     ->condition('type', 'os2web_event')
     ->execute();
 
